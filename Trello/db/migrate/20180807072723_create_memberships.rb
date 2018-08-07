@@ -1,10 +1,8 @@
 class CreateMemberships < ActiveRecord::Migration[5.2]
   def change
-    create_table :memberships do |t|
-      t.string :user,
-      t.references :dashboard, foreign_key: true
-
-      t.timestamps
+    create_join_table :users, :dashboards, table_name: :memberships do |t|
+      t.index :user_id
+      t.index :dashboard_id
     end
   end
 end
