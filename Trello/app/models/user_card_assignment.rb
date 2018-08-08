@@ -1,4 +1,4 @@
-class UserCardAssigment < ApplicationRecord
+class UserCardAssignment < ApplicationRecord
   belongs_to :user
   belongs_to :card
 

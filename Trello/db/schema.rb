@@ -10,20 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_072723) do
+ActiveRecord::Schema.define(version: 2018_08_08_195300) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "attachments", force: :cascade do |t|
+    t.integer "attachable"
     t.string "attachable_type"
-    t.integer "attachable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
   end
 
   create_table "cards", force: :cascade do |t|
     t.string "title"
     t.string "description"
-    t.integer "list_id"
+    t.datetime "due_date"
+    t.bigint "list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["list_id"], name: "index_cards_on_list_id"
@@ -38,14 +41,14 @@ ActiveRecord::Schema.define(version: 2018_08_07_072723) do
   create_table "dashboards", force: :cascade do |t|
     t.string "title", null: false
     t.boolean "public", default: true
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_dashboards_on_user_id"
   end
 
   create_table "labels", force: :cascade do |t|
-    t.string "color"
+    t.integer "color"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,22 +56,22 @@ ActiveRecord::Schema.define(version: 2018_08_07_072723) do
 
   create_table "lists", force: :cascade do |t|
     t.string "title"
-    t.integer "dashboard_id"
+    t.bigint "dashboard_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dashboard_id"], name: "index_lists_on_dashboard_id"
   end
 
   create_table "memberships", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "dashboard_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "dashboard_id", null: false
     t.index ["dashboard_id"], name: "index_memberships_on_dashboard_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "user_card_assigments", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "card_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "card_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["card_id"], name: "index_user_card_assigments_on_card_id"
@@ -76,6 +79,7 @@ ActiveRecord::Schema.define(version: 2018_08_07_072723) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "username"
     t.string "email"
     t.string "password"
     t.datetime "created_at", null: false

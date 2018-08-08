@@ -2,8 +2,6 @@
 
 one:
   title: MyString
-  dashboard_id: one
 
 two:
   title: MyString
-  dashboard_id: two
