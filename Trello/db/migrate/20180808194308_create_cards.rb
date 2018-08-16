@@ -5,6 +5,7 @@ class CreateCards < ActiveRecord::Migration[5.2]
       t.string :description
       t.datetime :due_date
       t.belongs_to :list
+      t.date
 
       t.timestamps
     end
