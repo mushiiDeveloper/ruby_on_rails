@@ -3,6 +3,7 @@ class CreateBookings < ActiveRecord::Migration[5.2]
     create_table :bookings do |t|
       t.datetime :start_time
       t.datetime :end_time
+      t.belongs_to :item
       t.timestamps
     end
   end
